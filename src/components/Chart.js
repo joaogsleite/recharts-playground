@@ -1,14 +1,18 @@
 import React, { PureComponent } from 'react'
 import { ComposedChart, ReferenceArea, XAxis, YAxis, Label, Line, Tooltip, ResponsiveContainer } from 'recharts'
 
-const data = [
-	{name: 1, value: 590 },
-  {name: 2, value: 868 },
-  {name: 3, value: 1397 },
-  {name: 4, value: 1480 },
-  {name: 5, value: 1520 },
-  {name: 6, value: 1400 },
+const DEFAULT_DATA = [
+  { x: 1, y: 590 },
+  { x: 2, y: 868 },
+  { x: 3, y: 1397 },
+  { x: 4, y: 1480 },
+  { x: 5, y: 1520 },
+  { x: 6, y: 1400 },
 ];
+
+const DEFAULT_REFERENCE = [500, 1000]
+
+const CHART_MARGIN = { top: 20, right: 20, bottom: 20, left: 20 }
 
 export default class Chart extends PureComponent {
 
@@ -19,17 +23,19 @@ export default class Chart extends PureComponent {
     return [value, 'Y']
   }
   render() {
-    const chartMargin = { top: 20, right: 20, bottom: 20, left: 20 }
+    const { data = DEFAULT_DATA, reference = DEFAULT_REFERENCE } = this.props
+    const refBottom = Math.min(...reference)
+    const refTop = Math.max(...reference)
     return (
       <ResponsiveContainer width="100%" aspect={2}>
-        <ComposedChart data={data} margin={chartMargin}>
+        <ComposedChart data={data} margin={CHART_MARGIN}>
 
-          <XAxis dataKey="name">
+          <XAxis dataKey="x">
             <Label position="bottom">
               X label
             </Label>
           </XAxis>
-          <YAxis dataKey="value">
+          <YAxis dataKey="y">
             <Label position="left" angle={-90}>
               Y label
             </Label>
@@ -37,21 +43,18 @@ export default class Chart extends PureComponent {
 
           <Tooltip labelFormatter={this.tooltipX} formatter={this.tooltipY} />
 
-          <ReferenceArea y1={0} y2={500} fill="green" fillOpacity={0.2}>
+          <ReferenceArea y2={refBottom} fill="green" fillOpacity={0.2}>
             <Label position="insideRight">
               Reference area
             </Label>
           </ReferenceArea>
-          <ReferenceArea y1={1000} y2={1600} fill="blue" fillOpacity={0.2}>
+          <ReferenceArea y1={refTop} fill="blue" fillOpacity={0.2}>
             <Label position="insideRight">
               Other reference area
             </Label>
           </ReferenceArea>
-          <Line 
-            type='monotone' 
-            dataKey='value' 
-            stroke='red'
-          />
+
+          <Line type='monotone' dataKey='y' stroke='red' />
 
         </ComposedChart>
       </ResponsiveContainer>

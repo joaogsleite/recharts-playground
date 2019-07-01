@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Chart from '../../components/Chart'
+import Chart from 'components/Chart'
 
 import style from './style.module.css'
 
