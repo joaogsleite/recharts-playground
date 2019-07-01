@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 
-import 'style/index.scss'
+import 'style/reset.scss'
 
 import Root from 'views/Root'
 

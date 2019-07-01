@@ -1,14 +1,15 @@
 import React from 'react'
 
 import Chart from 'components/Chart'
-
-import style from './style.module.scss'
+import Container from 'components/Container'
+import Title from 'components/Title'
 
 function Root() {
   return (
-    <div className={style.rootContainer}>
+    <Container>
+      <Title>Chart</Title>
       <Chart />
-    </div>
+    </Container>
   );
 }
 

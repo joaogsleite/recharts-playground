@@ -1,0 +1,7 @@
+
+@import "~style/mixins";
+@import "~bulma/sass/elements/container";
+
+.container {
+  @extend .container;
+}

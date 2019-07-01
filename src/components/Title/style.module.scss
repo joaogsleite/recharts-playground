@@ -1,0 +1,7 @@
+
+@import '~style/generic';
+@import '~bulma/sass/elements/title';
+
+.title {
+  @extend .is-2;
+}
