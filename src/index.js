@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker'
 
+import 'style/index.scss'
+
 import Root from 'views/Root'
 
 ReactDOM.render(<Root />, document.getElementById('root'))
