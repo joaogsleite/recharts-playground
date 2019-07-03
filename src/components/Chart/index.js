@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { ComposedChart, ReferenceArea, XAxis, YAxis, Label, Line, Tooltip, ResponsiveContainer } from 'recharts'
 
 const DEFAULT_DATA = [
@@ -17,7 +17,8 @@ const CHART_MARGIN = { top: 20, right: 20, bottom: 20, left: 20 }
 const tooltipX = (value) => `X : ${value}`
 const tooltipY = (value) => [value, 'Y']
 
-export default function Chart (props) {
+
+export default memo(function Chart (props) {
   const { data = DEFAULT_DATA, reference = DEFAULT_REFERENCE } = props
   const refBottom = Math.min(...reference)
   const refTop = Math.max(...reference)
@@ -60,4 +61,4 @@ export default function Chart (props) {
       </ComposedChart>
     </ResponsiveContainer>
   )
-}
+})
