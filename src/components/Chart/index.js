@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { ComposedChart, ReferenceArea, XAxis, YAxis, Label, Line, Tooltip, ResponsiveContainer } from 'recharts'
 
 const DEFAULT_DATA = [
@@ -14,56 +14,50 @@ const DEFAULT_REFERENCE = [500, 1000]
 
 const CHART_MARGIN = { top: 20, right: 20, bottom: 20, left: 20 }
 
-export default class Chart extends PureComponent {
+const tooltipX = (value) => `X : ${value}`
+const tooltipY = (value) => [value, 'Y']
 
-  tooltipX = (value) => {
-    return `X : ${value}`
-  }
-  tooltipY = (value) => {
-    return [value, 'Y']
-  }
-  render() {
-    const { data = DEFAULT_DATA, reference = DEFAULT_REFERENCE } = this.props
-    const refBottom = Math.min(...reference)
-    const refTop = Math.max(...reference)
-    return (
-      <ResponsiveContainer width="100%" aspect={2}>
-        <ComposedChart data={data} margin={CHART_MARGIN}>
+export default function Chart (props) {
+  const { data = DEFAULT_DATA, reference = DEFAULT_REFERENCE } = props
+  const refBottom = Math.min(...reference)
+  const refTop = Math.max(...reference)
+  return (
+    <ResponsiveContainer width="100%" aspect={2}>
+      <ComposedChart data={data} margin={CHART_MARGIN}>
 
-          <XAxis dataKey="x">
-            <Label position="bottom">
-              X label
-            </Label>
-          </XAxis>
-          <YAxis yAxisId="left" orientation="left">
-            <Label position="left" angle={-90}>
-              Y1 label
-            </Label>
-          </YAxis>
-          <YAxis yAxisId="right" orientation="right">
-            <Label position="right" angle={90}>
-              Y2 label
-            </Label>
-          </YAxis>
+        <XAxis dataKey="x">
+          <Label position="bottom">
+            X label
+          </Label>
+        </XAxis>
+        <YAxis yAxisId="left" orientation="left">
+          <Label position="left" angle={-90}>
+            Y1 label
+          </Label>
+        </YAxis>
+        <YAxis yAxisId="right" orientation="right">
+          <Label position="right" angle={90}>
+            Y2 label
+          </Label>
+        </YAxis>
 
-          <Tooltip labelFormatter={this.tooltipX} formatter={this.tooltipY} />
+        <Tooltip labelFormatter={tooltipX} formatter={tooltipY} />
 
-          <ReferenceArea yAxisId="left" y2={refBottom} fill="green" fillOpacity={0.2}>
-            <Label position="insideRight">
-              Reference area
-            </Label>
-          </ReferenceArea>
-          <ReferenceArea yAxisId="left" y1={refTop} fill="blue" fillOpacity={0.2}>
-            <Label position="insideRight">
-              Other reference area
-            </Label>
-          </ReferenceArea>
+        <ReferenceArea yAxisId="left" y2={refBottom} fill="green" fillOpacity={0.2}>
+          <Label position="insideRight">
+            Reference area
+          </Label>
+        </ReferenceArea>
+        <ReferenceArea yAxisId="left" y1={refTop} fill="blue" fillOpacity={0.2}>
+          <Label position="insideRight">
+            Other reference area
+          </Label>
+        </ReferenceArea>
 
-          <Line yAxisId="left" type='monotone' dataKey='y1' stroke='red' />
-          <Line yAxisId="right" type='monotone' dataKey='y2' stroke='blue' />
+        <Line yAxisId="left" type='monotone' dataKey='y1' stroke='red' />
+        <Line yAxisId="right" type='monotone' dataKey='y2' stroke='blue' />
 
-        </ComposedChart>
-      </ResponsiveContainer>
-    )
-  }
+      </ComposedChart>
+    </ResponsiveContainer>
+  )
 }
