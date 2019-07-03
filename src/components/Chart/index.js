@@ -2,12 +2,12 @@ import React, { PureComponent } from 'react'
 import { ComposedChart, ReferenceArea, XAxis, YAxis, Label, Line, Tooltip, ResponsiveContainer } from 'recharts'
 
 const DEFAULT_DATA = [
-  { x: 1, y: 590 },
-  { x: 2, y: 868 },
-  { x: 3, y: 1397 },
-  { x: 4, y: 1480 },
-  { x: 5, y: 1520 },
-  { x: 6, y: 1400 },
+  { x: 1, y1: 1590, y2: 2 },
+  { x: 2, y1: 1208, y2: 5 },
+  { x: 3, y1: 1397, y2: 10 },
+  { x: 4, y1: 1480, y2: 11 },
+  { x: 5, y1: 1020, y2: 15 },
+  { x: 6, y1: 500, y2: 12 },
 ];
 
 const DEFAULT_REFERENCE = [500, 1000]
@@ -35,26 +35,32 @@ export default class Chart extends PureComponent {
               X label
             </Label>
           </XAxis>
-          <YAxis dataKey="y">
+          <YAxis yAxisId="left" orientation="left">
             <Label position="left" angle={-90}>
-              Y label
+              Y1 label
+            </Label>
+          </YAxis>
+          <YAxis yAxisId="right" orientation="right">
+            <Label position="right" angle={90}>
+              Y2 label
             </Label>
           </YAxis>
 
           <Tooltip labelFormatter={this.tooltipX} formatter={this.tooltipY} />
 
-          <ReferenceArea y2={refBottom} fill="green" fillOpacity={0.2}>
+          <ReferenceArea yAxisId="left" y2={refBottom} fill="green" fillOpacity={0.2}>
             <Label position="insideRight">
               Reference area
             </Label>
           </ReferenceArea>
-          <ReferenceArea y1={refTop} fill="blue" fillOpacity={0.2}>
+          <ReferenceArea yAxisId="left" y1={refTop} fill="blue" fillOpacity={0.2}>
             <Label position="insideRight">
               Other reference area
             </Label>
           </ReferenceArea>
 
-          <Line type='monotone' dataKey='y' stroke='red' />
+          <Line yAxisId="left" type='monotone' dataKey='y1' stroke='red' />
+          <Line yAxisId="right" type='monotone' dataKey='y2' stroke='blue' />
 
         </ComposedChart>
       </ResponsiveContainer>
